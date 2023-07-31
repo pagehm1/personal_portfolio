@@ -1,0 +1,15 @@
+﻿.footer {
+    width: 100vw;
+    height: 30vh;
+    background-color: #424242;
+    padding: 30px;
+    margin-top: 20vh;
+    text-align: center;
+}
+
+.footerTitle {
+    text-decoration-line: underline;
+    font: Roquen;
+    font-size: 48px;
+    color: #FFFFFF;
+}

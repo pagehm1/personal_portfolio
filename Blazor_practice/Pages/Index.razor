@@ -1,7 +1,83 @@
 ﻿@page "/"
 
 <PageTitle>Home</PageTitle>
+<div class="container">
+    <div class="title-holder">
+        <h3 class="name">Hunter Page</h3>
+    </div>
+    <div class="image-port">
+        <img class="image" src="IMG_9717.jpg" />
+    </div>
+</div>
+<h4 class="text-box">About Me</h4>
+<p class="paragraph">
+    I am a backend software developer that has been in the industry for two years. In this time I have developed and 
+    maintained API's, CLI's, and in-house packages using C# and GOLANG. In my spare time, I like to work on my own projects, 
+    both old and new. I like diving into new frameworks and languages such as GOLANG and Blazor. I also like to code in C, 
+    with the goal to develop an entire Nintendo Entertainment System (NES) game of my own, of which I will blog here when 
+    the time comes. Look below to see more about me!
+</p>
+<MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey;" />
+<h4 class="text-box">Education</h4>
+<div>
+    <div style="float:left;">
+        <h4 class="sub-title" style="padding-left:15px;">East Tennessee State University</h4>
+        <p class="sub-body">
+            Johnson City, TN | August 2019 – December 2021<br />
+            Bachelor of Science in Computing; Concentration – Computer Science <br />
+            GPA: 3.85, Summa Cum Laude <br />
+        </p>
+    </div>
+    <div style="float:right;">
+        <h4 class="sub-title" style="padding-left:15px;">Northeast State Community College</h4>
+        <p class="sub-body">
+            Blountville, TN | September 2017 – May 2019<br />
+            Associates of Applied Science: Computer Information Technology - Programming<br />
+            GPA: 3.9, Magna Cum Laude <br />
+        </p>
+    </div>
+</div>
+<MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-bottom: 5%;" />
+<div style="margin:auto; width: 90%; text-align:center;">    
+    <h4 class="text-box">Skills</h4>
+    <img class="api-image" src="api.png" style="width: 400px;"/>
+    <h4 class="sub-title">API Development</h4>
+    <p class="sub-body">
+        Two years of development and maintenance of RESTful APIs in both GOLANG and .NET.
+    </p>
+    <MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-top: 5%; margin-bottom: 5%;" />
+</div>
+<div style="margin:auto; width: 80%; text-align:center;">
+    <h4 class="sub-title">.NET</h4>
+    <img class="api-image" src="net2.png" />
+    <p class="sub-body">
+        5+ years of experience in the .NET environment. Experience includes CLIs, APIs, web development using Blazor, algorithm and
+        data structure analysis, and library creation.
+    </p>
+    <MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-top: 5%; margin-bottom: 5%;" />
+</div>
+<div style="margin:auto; width: 70%; text-align:center;">
+    <h4 class="sub-title">Other Experience</h4>
+    <img class="api-image" src="languages.png" style="width: 450px;" />
+    <p class="sub-body">
+        MYSQL database programming, Programming in Linux OS Environment, performing Test-Driven Development,
+        Object-Oriented Java development, C programming, PHP, Web-development(HTML, CSS, JavaScript)
+    </p>
+    <MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-top: 5%; margin-bottom: 5%;" />
+</div>
+<h4 class="text-box">My Projects</h4>
 
-    <MudImage Src="IMG_9717.jpg" Alt="Me!" Height="4000" Width="1500" ></MudImage>
-
-Welcome to your new app.
+<div class="link-holder">
+    <a style="display: block;" href="/filetransfer">
+        <div class="link-value" />
+    </a>
+    <a style="display: block;" href="/fetchdata">
+        <div class="link-value" />
+    </a>
+    <a style="display: block;" href="/fetchdata">
+        <div class="link-value" />
+    </a>
+    <a style="display: block;" href="/fetchdata">
+        <div class="link-value" />
+    </a>
+</div>
