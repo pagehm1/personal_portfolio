@@ -100,7 +100,6 @@
 }
 
 .sub-body {
-    padding-left: 45px;
     font: Roquen;
     font-size: 20px;
     font-weight: 800;
@@ -110,6 +109,14 @@
     width: 300px;
     height: 300px;
     margin-bottom: 20px;
+}
+
+.education-holder {
+    width: 70%;
+    height: 30vh;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 @keyframes fade {
