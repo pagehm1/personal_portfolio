@@ -3,7 +3,7 @@
     height: 30vh;
     background-color: #424242;
     padding: 30px;
-    margin-top: 20vh;
+    margin: 20vh auto 0 auto;
     text-align: center;
 }
 
@@ -12,4 +12,10 @@
     font: Roquen;
     font-size: 48px;
     color: #FFFFFF;
+}
+
+.footerText {
+    color: #ffffff;
+    font-size: 28px;
+    margin-top: 10px;
 }
