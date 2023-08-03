@@ -1,0 +1,12 @@
+﻿<h4>@BoxTitle</h4>
+
+
+<MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey;" />
+@code {
+    public string BoxTitle { get; set; } = "Title here";
+
+    public void SetBoxTitle(string title)
+    {
+        this.BoxTitle = title;
+    }
+}

@@ -5,16 +5,20 @@
 <MudSnackbarProvider />
 <MudLayout>
     <MudAppBar Color="Color.Dark">
-        <MudIconButton Size="Size.Large" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Href=""/>
+        <MudIconButton Size="Size.Large" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Href="https://github.com/pagehm1" />
         <MudSpacer />
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.End" OnClick="@((e) => DrawerToggle())" />
     </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen" Anchor="Anchor.End" Color="Color.Dark">
+    <MudDrawer @bind-Open="@_drawerOpen" Anchor="Anchor.End" Color="Color.Dark" Style="z-index: 1;">
         <NavMenu/>
     </MudDrawer>
     <MudMainContent>
         @Body
+        <MudScrollToTop ScrollBehavior="ScrollBehavior.Smooth" Style="z-index: 2;">
+            <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.ArrowCircleUp"  />
+        </MudScrollToTop>
     </MudMainContent>
+    <Footer/>
 </MudLayout>
 
 
