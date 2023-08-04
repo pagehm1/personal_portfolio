@@ -1,4 +1,4 @@
-using Blazor_practice;
+using Hunter_Page;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;

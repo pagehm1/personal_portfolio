@@ -1,4 +1,4 @@
-﻿namespace Blazor_practice.Shared
+﻿namespace Hunter_Page.Shared
 {
     public class Argument
     {
