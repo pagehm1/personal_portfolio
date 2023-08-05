@@ -4,12 +4,12 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 <MudLayout>
-    <MudAppBar Color="Color.Dark">
+    <MudAppBar Color="Color.Dark" Elevation="1">
         <MudIconButton Size="Size.Large" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Href="https://github.com/pagehm1" />
         <MudSpacer />
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.End" OnClick="@((e) => DrawerToggle())" />
     </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen" Anchor="Anchor.End" Color="Color.Dark" Style="z-index: 1;">
+    <MudDrawer @bind-Open="@_drawerOpen" Anchor="Anchor.End" Color="Color.Dark" Elevation="1">
         <NavMenu/>
     </MudDrawer>
     <MudMainContent>
