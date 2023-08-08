@@ -4,10 +4,9 @@
 <div class="container">
     <div class="title-holder">
         <h3 class="name">Hunter Page</h3>
+        <p class="paragraph">Software Developer</p>
     </div>
-    <div class="image-port">
-        <img class="image" src="IMG_9717.jpg" />
-    </div>
+    <img class="image" src="IMG_9717.jpg" />
 </div>
 <h4 class="text-box">About Me</h4>
 <p class="paragraph">
@@ -19,57 +18,78 @@
 <MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey;" />
 <h4 class="text-box">Education</h4>
 <div class="education-holder">
-    <div style="float:left;">
-        <h4 class="sub-title" style="padding-left:15px;">East Tennessee State University</h4>
-        <p class="sub-body">
-            Johnson City, TN | August 2019 – December 2021<br />
-            Bachelor of Science in Computing; Concentration – Computer Science <br />
-            GPA: 3.85, Summa Cum Laude <br />
-        </p>
-    </div>
-    <div style="float:right;">
-        <h4 class="sub-title" style="padding-left:15px;">Northeast State Community College</h4>
-        <p class="sub-body">
-            Blountville, TN | September 2017 – May 2019<br />
-            Associates of Applied Science: Computer Information Technology - Programming<br />
-            GPA: 3.9, Magna Cum Laude <br />
-        </p>
-    </div>
-</div>
-<MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-bottom: 5%;" />
-<div style="margin:auto; width: 90%; text-align:center;">    
-    <h4 class="text-box">Skills</h4>
-    <img class="api-image" src="api.png" style="width: 400px;"/>
-    <h4 class="sub-title">API Development</h4>
+    <h4 class="sub-title">East Tennessee State University</h4>
     <p class="sub-body">
-        Two years of development and maintenance of RESTful APIs in both GOLANG and .NET.
+        Johnson City, TN | August 2019 – December 2021<br />
+        Bachelor of Science in Computing; Concentration – Computer Science <br />
+        GPA: 3.85, Summa Cum Laude <br />
     </p>
-    <MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-top: 5%; margin-bottom: 5%;" />
-</div>
-<div style="margin:auto; width: 80%; text-align:center;">
-    <h4 class="sub-title">.NET</h4>
-    <img class="api-image" src="net2.png" />
+    <h4 class="sub-title">Northeast State Community College</h4>
     <p class="sub-body">
-        5+ years of experience in the .NET environment. Experience includes CLIs, APIs, web development using Blazor, algorithm and
-        data structure analysis, and library creation.
+        Blountville, TN | September 2017 – May 2019<br />
+        Associates of Applied Science: Computer Information Technology - Programming<br />
+        GPA: 3.9, Magna Cum Laude <br />
     </p>
-    <MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-top: 5%; margin-bottom: 5%;" />
 </div>
-<div style="margin:auto; width: 70%; text-align:center;">
-    <h4 class="sub-title">Other Experience</h4>
-    <img class="api-image" src="languages.png" style="width: 450px;" />
-    <p class="sub-body">
-        MYSQL database programming, Programming in Linux OS Environment, performing Test-Driven Development,
-        Object-Oriented Java development, C programming, PHP, Web-development(HTML, CSS, JavaScript)
-    </p>
-    <MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-top: 5%; margin-bottom: 5%;" />
-</div>
+
+<MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-top: 5%; margin-bottom: 5%;" />
+
+<h4 class="text-box">Skills</h4>
+<MudCarousel Style="margin:0 auto !important; width: 75%; border:2px solid black; border-radius: 10px; height:600px;" TData="object" AutoCycle="false" ArrowsPosition="Position.Center">
+    <PreviousButtonTemplate>
+        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+            <span class="mud-icon-button-label">
+                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Dark" Size="Size.Large" />
+            </span>
+        </div>
+    </PreviousButtonTemplate>
+    <NextButtonTemplate>
+        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+            <span class="mud-icon-button-label">
+                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Dark" Size="Size.Large" />
+            </span>
+        </div>
+    </NextButtonTemplate>
+    <ChildContent>
+        <MudCarouselItem>
+            <div class="carousel-image" style="background-image: url(api.png);"></div>
+            <div class="carousel-item">
+                <h4 class="sub-title">API Development</h4>
+                <p class="sub-body">
+                    Two years of development and maintenance of RESTful APIs in both GOLANG and .NET.
+                </p>
+            </div>
+        </MudCarouselItem>
+        <MudCarouselItem>
+            <div class="carousel-image" style="background-image: url(net2.png);"></div>
+            <div class="carousel-item">
+                <h4 class="sub-title">.NET</h4>
+                <p class="sub-body">
+                    5+ years of experience in the .NET environment. Experience includes CLIs, APIs, web development using Blazor, algorithm and
+                    data structure analysis, object-oriented programming, and library creation.
+                </p>
+            </div>
+        </MudCarouselItem>
+        <MudCarouselItem>
+            <div class="carousel-image" style="background-image: url(languages.png);"></div>
+            <div class="carousel-item">
+                <h4 class="sub-title">Other Experience</h4>
+                <p class="sub-body">
+                    2+ years of MYSQL database programming, 3+ years programming in Linux OS Environments, performing Test-Driven Development,
+                    Object-Oriented Java development, C programming, PHP, Web-development(HTML, CSS, JavaScript)
+                </p>
+            </div>
+
+        </MudCarouselItem>
+    </ChildContent>
+</MudCarousel>
+
 <h4 class="text-box">Future Plans</h4>
 <p class="paragraph">
    Currently I have been developing in .NET through this project and a couple other projects such as my file_transfer CLI. In the future I plan 
-   to add some REST API functionality to this website to display the capabilities of Blazor. I also plan to develop a debugger for the fictional 
-   assembly language, pep9. It's an attempt to understand low-level programming better and to become more familiar with the C programming language.
-   Other plans in the future include OS development, more .NET projects, and honestly whatever else peaks my interest. There are links below to 
-   contact me with any questions or suggestions, as I am open to any. Hopefully this website gives a decent idea at the developer I currently am and
-   plan to be in the future. Thank you for taking the time to look me up!
+   to add some REST API functionality to this website to display the capabilities of Blazor. I also plan to revamp some of my old school projects 
+   and add them to my github. I also plan to develop a debugger for the fictional assembly language, pep9. It's an attempt to understand low-level 
+   programming better and to become more familiar with the C programming language. Other plans in the future include OS development, more .NET projects, 
+   and honestly whatever else piques my interest. There are links below to contact me with any questions or suggestions, as I am open to any. Hopefully 
+   this website gives a decent idea at the developer I currently am and plan to be in the future. Thank you for taking the time to look me up!
 </p>
