@@ -31,11 +31,16 @@
 } 
 
 .description {
-    font-size: 22px;
+    font-size: calc(22px + 0.3vw);
     padding: 60px 0px 60px 0px;
 }
 
 .transfer-container {
-    width: 95%;
-    margin: auto;
+    width: 100%;
+    margin-left: 5vw;
+}
+
+.instruction-pic {
+    width: 100%;
+    max-width: 600px;
 }
