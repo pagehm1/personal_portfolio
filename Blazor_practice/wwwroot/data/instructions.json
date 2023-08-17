@@ -1,0 +1,230 @@
+[
+  {
+    "Bits": "00000",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "ADD",
+    "Description": "performs addition with the accumulator and a specified value.",
+    "Example": "ADD X; //adds the value contained within X to the Accumulator, and store the result in the accumulator."
+  },
+  {
+    "Bits": "00001",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "SUB",
+    "Description": "performs subtraction with the accumulator and a specified value.",
+    "Example": "SUB 0x100; //subtracts the value contained within 0x100 to the Accumulator, and store the result in the accumulator."
+  },
+  {
+    "Bits": "00010",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "AND",
+    "Description": "performs an AND operation with the accumulator and a specified value.",
+    "Example": "AND X; //performs the AND operation on A with the value in register X"
+  },
+  {
+    "Bits": "00011",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "OR",
+    "Description": "performs an OR operation with the accumulator and a specified value.",
+    "Example": "OR X; //performs the OR operation on A with the value in register X"
+  },
+  {
+    "Bits": "00100",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "XOR",
+    "Description": "performs a XOR operation with the accumulator and a specified value.",
+    "Example": "XOR X; //performs the XOR operation on A with the value in register X"
+  },
+  {
+    "Bits": "00101",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "LDA",
+    "Description": "Loads a value from the specified location in the Accumulator",
+    "Example": "LDA X; //Loads the value from register X into the Accumulator"
+  },
+  {
+    "Bits": "00110",
+    "AddressingModes": [
+      "000",
+      "010",
+      "011"
+    ],
+    "Name": "LDX",
+    "Description": "Loads a value from the specified location into register X",
+    "Example": "LDX 0x1000; //Loads the value from the memory location into register X"
+  },
+  {
+    "Bits": "00111",
+    "AddressingModes": [
+      "011"
+    ],
+    "Name": "STA",
+    "Description": "Stores the value from the Accumulator into the specified location",
+    "Example": "STA 0x1000; //Stores the value from the Accumulator into the specified memory location"
+  },
+  {
+    "Bits": "01000",
+    "AddressingModes": [
+      "011"
+    ],
+    "Name": "STX",
+    "Description": "Stores the value from the value in register X into the specified lcoation",
+    "Example": "STX 0x1000; //Stores the value from register X into the specified memory location"
+  },
+  {
+    "Bits": "01001",
+    "AddressingModes": [
+      "011"
+    ],
+    "Name": "BRT",
+    "Description": "Branch to the specified memory location if the truth value is set (1)",
+    "Example": "BRT 0x1000;"
+  },
+  {
+    "Bits": "00010",
+    "AddressingModes": [
+      "011"
+    ],
+    "Name": "BRNT",
+    "Description": "Branch to the specified memory location if the truth value is NOT set (0)",
+    "Example": "BRNT 0x1000;"
+  },
+  {
+    "Bits": "01010",
+    "AddressingModes": [
+      "010"
+    ],
+    "Name": "UBR",
+    "Description": "Branch to the specified memory location",
+    "Example": "UBR 0x1000;"
+  },
+  {
+    "Bits": "01011",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "CPE",
+    "Description": "Compare the value in the Accumulator to the specified value to see if they are equal",
+    "Example": "CPE 0x1000; //Compare the value in the specified memory location to the value in the Accumulator"
+  },
+  {
+    "Bits": "01100",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "CPLT",
+    "Description": "Compare the value in the Accumulator to the specified value to see if it less",
+    "Example": "CPLT 0x1000; //Compare the value in the specified memory location to the value in the Accumulator"
+  },
+  {
+    "Bits": "01101",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "CPLE",
+    "Description": "Compare the value in the Accumulator to the specified value to see if it is less than or equal",
+    "Example": "CPLE 0x1000; //Compare the value in the specified memory location to the value in the Accumulator"
+  },
+  {
+    "Bits": "01110",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "CPGT",
+    "Description": "Compare the value in the Accumulator to the specified value to see if it is greater",
+    "Example": "CPGT 0x1000; //Compare the value in the specified memory location to the value in the Accumulator"
+  },
+  {
+    "Bits": "01111",
+    "AddressingModes": [
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "CPGE",
+    "Description": "Compare the value in the Accumulator to the specified value to see if it is greater than or equal",
+    "Example": "CPGE 0x1000; //Compare the value in the specified memory location to the value in the Accumulator"
+  },
+  {
+    "Bits": "10000",
+    "AddressingModes": [
+      "000",
+      "001",
+      "010",
+      "011"
+    ],
+    "Name": "PUSH",
+    "Description": "Place a value onto the stack in memory",
+    "Example": "PUSH A; //Place the value in the Accumulator onto the stack"
+  },
+  {
+    "Bits": "10001",
+    "AddressingModes": [
+      "000"
+    ],
+    "Name": "POP",
+    "Description": "Release the top value from the stack",
+    "Example": "POP A; //Release the value from the stack into A"
+  },
+  {
+    "Bits": "10010",
+    "AddressingModes": [
+      "000",
+      "001"
+    ],
+    "Name": "NEG",
+    "Description": "Perform the NEGATE operation on the specified location",
+    "Example": "NEG A; //Perform the negate operation on the Accumulator"
+  },
+  {
+    "Bits": "10011",
+    "AddressingModes": [
+      "000",
+      "001"
+    ],
+    "Name": "NOT",
+    "Description": "Perform a NOT operation on the specified location",
+    "Example": "NOT A; //Perform the NOT operation on the Accumulator"
+  },
+  {
+    "Bits": "11111",
+    "AddressingModes": [
+      "111"
+    ],
+    "Name": "YD",
+    "Description": "Ends the program",
+    "Example": "YD;"
+  }
+]
+

@@ -1,0 +1,57 @@
+[
+  {
+    "ArgumentLetters": [
+      "-c"
+    ],
+    "ArgumentWord": "--compress",
+    "Required": false,
+    "Description": "decrease destination directory size",
+    "DefaultValue": "false"
+  },
+  {
+    "ArgumentLetters": [
+      "-f"
+    ],
+    "ArgumentWord": "--files",
+    "Required": true,
+    "Description": "directories that are being transferred",
+    "DefaultValue": null
+  },
+  {
+    "ArgumentLetters": [
+      "-d"
+    ],
+    "ArgumentWord": "--destination",
+    "Required": true,
+    "Description": "directory that files are being transferred to",
+    "DefaultValue": null
+  },
+  {
+    "ArgumentLetters": [
+      "-s"
+    ],
+    "ArgumentWord": "--stats",
+    "Required": false,
+    "Description": "provides statistics on the files being transferred",
+    "DefaultValue": "false"
+  },
+  {
+    "ArgumentLetters": [
+      "-v"
+    ],
+    "ArgumentWord": "--version",
+    "Required": false,
+    "Description": "Show version information",
+    "DefaultValue": null
+  },
+  {
+    "ArgumentLetters": [
+      "-?",
+      "-h"
+    ],
+    "ArgumentWord": "--help",
+    "Required": false,
+    "Description": "Show help and usage information",
+    "DefaultValue": null
+  }
+]

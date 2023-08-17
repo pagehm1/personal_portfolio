@@ -1,5 +1,7 @@
 ﻿@page "/filetransfer"
 @inject NavigationManager NavigationManager
+@inject HttpClient Http
+
 
 <PageTitle>File Transfer</PageTitle>
 
@@ -85,18 +87,16 @@
 </div>
 
 @code {
+    public List<Argument>? Arguments;
+
     private void Navigate(string section)
     {
         NavigationManager.NavigateTo(section);
     }
 
-    public List<Argument> Arguments = new List<Argument>
+    protected override async Task OnInitializedAsync()
     {
-        new Argument(new List<string>{"-c"}, "--compress", false, "decrease destination directory size", "false"),
-        new Argument(new List<string>{"-f"}, "--files", true, "directories that are being transferred", null),
-        new Argument(new List<string>{"-d"}, "--destination", true, "directory that files are being transferred to", null),
-        new Argument(new List<string>{"-s"}, "--stats", false, "provides statistics on the files being transferred", "false"),
-        new Argument(new List<string>{"-v"}, "--version", false, "Show version information", null),
-        new Argument(new List<string>{"-?", "-h"}, "--help", false, "Show help and usage information", null),
-    };
+        Arguments = await Http.GetFromJsonAsync<List<Argument>?>("data/FileTransfer_Arguments.json");
+    }
+
 }
