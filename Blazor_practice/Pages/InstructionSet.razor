@@ -2,8 +2,6 @@
 @page "/assembly_instructions"
 @inject HttpClient Http
 
-
-
 <PageTitle>File Transfer</PageTitle>
 
 <h3 class="title">Assembly Instruction Set</h3>
@@ -13,22 +11,22 @@
         <MudListSubheader Style="color: #ffffff;">
             Overview
         </MudListSubheader>
-        <MudListItem Icon="@Icons.Material.Filled.Link">
-            <a href="filetransfer#link" target="_top" style="color:white;">Link to Repository</a>
-        </MudListItem>
         <MudListItem Icon="@Icons.Material.Filled.Info">
-            <a href="filetransfer#description" target="_top" style="color:white;">Description</a>
+            <a href="assembly_instructions#description" target="_top" style="color:white;">Description</a>
+        </MudListItem>
+        <MudListItem Icon="@Icons.Material.Filled.Link">
+            <a href="assembly_instructions#link" target="_top" style="color:white;">Link to Repository</a>
         </MudListItem>
         <MudListItem Icon="@Icons.Material.Outlined.DriveFileMove">
-            <a href="filetransfer#options" target="_top" style="color:white;">Instruction List and Uses</a>
+            <a href="assembly_instructions#options" target="_top" style="color:white;">Details</a>
         </MudListItem>
         <MudListItem Icon="@Icons.Material.Filled.Architecture">
-            <a href="filetransfer#instructions" target="_top" style="color:white;">Installation Instructions</a>
+            <a href="assembly_instructions#instructions" target="_top" style="color:white;">Instructions</a>
         </MudListItem>
     </MudList>
 </MudPaper>
 
-<p class="description">
+<p class="description" id="description">
     This instruction set was created by me and two other developers for a computer architecture project. Once we had learned about instruction sets
     and their use in communicating with the processor, we were tasked with creating our own, based off of any type of instruction set.
     We decided to go with a hybrid of a "Register memory" and "Accumulator" set. Register memory architecture allows the user to perform operations on 
@@ -54,6 +52,8 @@
 
 </p>
 
+<h3 class="title" id="instructions">Instructions</h3>
+
 <MudTable Items="Instructions" Style="margin-bottom: 30px;" >
     <HeaderContent>
         <MudTh>Name</MudTh>
@@ -71,14 +71,31 @@
     </RowTemplate>
 </MudTable>
 
+<h3 class="title">AddressingModes</h3>
+
+<MudTable Items="AddressModes" Style="margin-bottom: 30px;">
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Bits</MudTh>
+        <MudTh>Description</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Bits">@context.Bits</MudTd>
+        <MudTd DataLabel="Description">@context.Description</MudTd>
+    </RowTemplate>
+</MudTable>
+
 
 @code {
     public List<Instruction>? Instructions = new List<Instruction>();
+    public List<AddressMode>? AddressModes = new List<AddressMode>();
 
 
     protected override async Task OnInitializedAsync()
     {
         Instructions = await Http.GetFromJsonAsync <List<Instruction>?> ("data/instructions.json");
+        AddressModes = await Http.GetFromJsonAsync<List<AddressMode>?>("data/Addressing_Modes.json");
     }
 }
 

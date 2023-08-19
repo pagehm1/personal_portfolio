@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "Accumulator, (A)",
+    "Bits": "000",
+    "Description": "References the accumulator register"
+  },
+  {
+    "Name": "Index, (X)",
+    "Bits": "001",
+    "Description": "References the index register"
+  },
+  {
+    "Name": "Immediate, (I)",
+    "Bits": "010",
+    "Description": "References a literal value"
+  },
+  {
+    "Name": "Memory, (M)",
+    "Bits": "011",
+    "Description": "References a value in memory"
+  },
+  {
+    "Name": "None, (N)",
+    "Bits": "111",
+    "Description": "No reference to any value"
+  }
+]
