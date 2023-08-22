@@ -132,4 +132,9 @@ a, .btn-link {
 
     .git-link:hover {
         background-color: darkgrey;
-    } 
+    }
+
+.transfer-container {
+    width: 95%;
+    margin-left: 3vw;
+}

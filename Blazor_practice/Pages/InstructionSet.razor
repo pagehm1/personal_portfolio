@@ -1,101 +1,128 @@
 ﻿
 @page "/assembly_instructions"
 @inject HttpClient Http
+@using MudBlazor.Extensions
 
 <PageTitle>File Transfer</PageTitle>
 
 <h3 class="title">Assembly Instruction Set</h3>
 
-<MudPaper Width="70%" Style="background-color: #424242">
-    <MudList Clickable="true" Style="color: #ffffff;">
-        <MudListSubheader Style="color: #ffffff;">
-            Overview
-        </MudListSubheader>
-        <MudListItem Icon="@Icons.Material.Filled.Info">
-            <a href="assembly_instructions#description" target="_top" style="color:white;">Description</a>
-        </MudListItem>
-        <MudListItem Icon="@Icons.Material.Filled.Link">
-            <a href="assembly_instructions#link" target="_top" style="color:white;">Link to Repository</a>
-        </MudListItem>
-        <MudListItem Icon="@Icons.Material.Outlined.DriveFileMove">
-            <a href="assembly_instructions#options" target="_top" style="color:white;">Details</a>
-        </MudListItem>
-        <MudListItem Icon="@Icons.Material.Filled.Architecture">
-            <a href="assembly_instructions#instructions" target="_top" style="color:white;">Instructions</a>
-        </MudListItem>
-    </MudList>
-</MudPaper>
+<div class="transfer-container">
+    <MudPaper Width="70%" Style="background-color: #424242">
+        <MudList Clickable="true" Style="color: #ffffff;">
+            <MudListSubheader Style="color: #ffffff;">
+                Overview
+            </MudListSubheader>
+            <MudListItem Icon="@Icons.Material.Filled.Info">
+                <a href="assembly_instructions#description" target="_top" style="color:white;">Description</a>
+            </MudListItem>
+            <MudListItem Icon="@Icons.Material.Filled.Link">
+                <a href="assembly_instructions#link" target="_top" style="color:white;">Link to Repository</a>
+            </MudListItem>
+            <MudListItem Icon="@Icons.Material.Outlined.DriveFileMove">
+                <a href="assembly_instructions#options" target="_top" style="color:white;">Details</a>
+            </MudListItem>
+            <MudListItem Icon="@Icons.Material.Filled.Architecture">
+                <a href="assembly_instructions#instructions" target="_top" style="color:white;">Instructions</a>
+            </MudListItem>
+        </MudList>
+    </MudPaper>
 
-<p class="description" id="description">
-    This instruction set was created by me and two other developers for a computer architecture project. Once we had learned about instruction sets
-    and their use in communicating with the processor, we were tasked with creating our own, based off of any type of instruction set.
-    We decided to go with a hybrid of a "Register memory" and "Accumulator" set. Register memory architecture allows the user to perform operations on 
-    memory rather than only registers. More info can be found <a href="https://en.wikipedia.org/wiki/Register%E2%80%93memory_architecture">here</a>. 
-    Accumulator architecture places the results of an instruction into the accumulator, more info on this type <a href="https://en.wikipedia.org/wiki/Accumulator_(computing)#Accumulator_machines">here</a>
-    We also took inspiration from the 6502 processor, info on that <a href="http://6502.org/users/obelisk/6502/"> here</a>. In the end, we created a fairly simple instruction set that provides the user
-    with 22 8-bit instructions, in which the layout and instruction list are below. We also created a program to read and execute a program written in our 
-    language, so if you're that curious to check it out, the github is linked below.
-</p>
+    <p class="description" id="description">
+        This instruction set was created by me and two other developers for a computer architecture project. Once we had learned about instruction sets
+        and their use in communicating with the processor, we were tasked with creating our own, based off of any type of instruction set.
+        We decided to go with a hybrid of a "Register memory" and "Accumulator" set. Register memory architecture allows the user to perform operations on
+        memory rather than only registers. More info can be found <a href="https://en.wikipedia.org/wiki/Register%E2%80%93memory_architecture">here</a>.
+        Accumulator architecture places the results of an instruction into the accumulator, more info on this type <a href="https://en.wikipedia.org/wiki/Accumulator_(computing)#Accumulator_machines">here</a>
+        We also took inspiration from the 6502 processor, info on that <a href="http://6502.org/users/obelisk/6502/"> here</a>. In the end, we created a fairly simple instruction set that provides the user
+        with 22 8-bit instructions, in which the layout and instruction list are below. We also created a program to read and execute a program written in our
+        language, so if you're that curious to check it out, the github is linked below.
+    </p>
 
-<div class="git-link" id="link">
-    <a href="https://github.com/pagehm1/File_Transfer">Github Repository Here</a>
+    <div class="git-link" id="link">
+        <a href="https://github.com/pagehm1/File_Transfer">Github Repository Here</a>
+    </div>
+
+    <h3 class="title">Details</h3>
+
+    <p class="description">
+        Architecture type: Register Memory/Accumulator <br />
+        Sequencing: Big Endian <br />
+        Memory: 1 MiB <br />
+        Instructions: 8-bit <br />
+        Value size: 16-bits (1 word)<br />
+
+    </p>
+
+    <MudTable Items="Instructions" Style="margin-bottom: 30px;" Filter="new Func<Element, bool>(FilterInstructions)" @bind-SelectedItem="SearchVal">
+        <ToolBarContent>
+            <MudText Typo="Typo.h3">Instructions</MudText>
+            <MudSpacer/>
+            <MudTextField @bind-Value="SearchVal" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Bits</MudTh>
+            <MudTh>Addressing Modes</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Example</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Bits">@context.Bits</MudTd>
+            <MudTd DataLabel="Addressing Modes">@context.PrintAddressingModes()</MudTd>
+            <MudTd DataLabel="Description">@context.Description</MudTd>
+            <MudTd DataLabel="Example">@context.Example</MudTd>
+        </RowTemplate>
+    </MudTable>
+
+    <h3 class="title">AddressingModes</h3>
+
+    <MudTable Items="AddressModes" Style="margin-bottom: 30px;">
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Bits</MudTh>
+            <MudTh>Description</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Bits">@context.Bits</MudTd>
+            <MudTd DataLabel="Description">@context.Description</MudTd>
+        </RowTemplate>
+    </MudTable>
+
+    <h3 class="title">Assembly Execution Program</h3>
+    <p class="description" id="description">
+        Another project in this class was creating a program that allows the user to create and execute programs using our assembly langauge. It is a simple windows form that allows user to read
+        in a file, the code
+    </p>
+
 </div>
 
-<h3 class="title">Details</h3>
-
-<p class="description">
-    Architecture type: Register Memory/Accumulator <br/>
-    Sequencing: Big Endian <br />
-    Memory: 1 MiB <br/>
-    Instructions: 8-bit <br />
-    Value size: 16-bits (1 word)<br />
-
-</p>
-
-<h3 class="title" id="instructions">Instructions</h3>
-
-<MudTable Items="Instructions" Style="margin-bottom: 30px;" >
-    <HeaderContent>
-        <MudTh>Name</MudTh>
-        <MudTh>Bits</MudTh>
-        <MudTh>Addressing Modes</MudTh>
-        <MudTh>Description</MudTh>
-        <MudTh>Example</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Name">@context.Name</MudTd>
-        <MudTd DataLabel="Bits">@context.Bits</MudTd>
-        <MudTd DataLabel="Addressing Modes">@context.PrintAddressingModes()</MudTd>
-        <MudTd DataLabel="Description">@context.Description</MudTd>
-        <MudTd DataLabel="Example">@context.Example</MudTd>
-    </RowTemplate>
-</MudTable>
-
-<h3 class="title">AddressingModes</h3>
-
-<MudTable Items="AddressModes" Style="margin-bottom: 30px;">
-    <HeaderContent>
-        <MudTh>Name</MudTh>
-        <MudTh>Bits</MudTh>
-        <MudTh>Description</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Name">@context.Name</MudTd>
-        <MudTd DataLabel="Bits">@context.Bits</MudTd>
-        <MudTd DataLabel="Description">@context.Description</MudTd>
-    </RowTemplate>
-</MudTable>
-
-
 @code {
-    public List<Instruction>? Instructions = new List<Instruction>();
-    public List<AddressMode>? AddressModes = new List<AddressMode>();
+    internal List<Instruction>? Instructions = new List<Instruction>();
+    internal List<AddressMode>? AddressModes = new List<AddressMode>();
+
+    private string SearchVal = "";
 
 
     protected override async Task OnInitializedAsync()
     {
         Instructions = await Http.GetFromJsonAsync <List<Instruction>?> ("data/instructions.json");
         AddressModes = await Http.GetFromJsonAsync<List<AddressMode>?>("data/Addressing_Modes.json");
+    }
+
+    private bool FilterInstructions(Element e)
+    {
+        if (string.IsNullOrWhiteSpace(SearchVal))
+            return true;
+        if (e.Sign.Contains(SearchVal, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (e.Name.Contains(SearchVal, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{e.Name}".Contains(SearchVal))
+            return true;
+        return false;
     }
 }
 

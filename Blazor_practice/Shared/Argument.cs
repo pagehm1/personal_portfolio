@@ -1,6 +1,6 @@
 ﻿namespace Hunter_Page.Shared
 {
-    public class Argument
+    internal class Argument
     {
         public List<string> ArgumentLetters { get; set; }
 

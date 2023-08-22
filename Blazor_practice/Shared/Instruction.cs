@@ -1,8 +1,6 @@
-﻿using System.Text.Json;
-
-namespace Hunter_Page.Shared
+﻿namespace Hunter_Page.Shared
 {
-    public class Instruction
+    internal class Instruction
     {
         public string Bits { get; set; }
 

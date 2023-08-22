@@ -1,6 +1,6 @@
 ﻿namespace Hunter_Page.Shared
 {
-    public class AddressMode
+    internal class AddressMode
     {
         public string Name { get; set; }
 
