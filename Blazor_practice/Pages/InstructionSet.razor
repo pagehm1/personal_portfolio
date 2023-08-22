@@ -1,7 +1,7 @@
 ﻿
 @page "/assembly_instructions"
 @inject HttpClient Http
-@using MudBlazor.Extensions
+@using MudBlazor
 
 <PageTitle>File Transfer</PageTitle>
 
@@ -51,14 +51,12 @@
         Memory: 1 MiB <br />
         Instructions: 8-bit <br />
         Value size: 16-bits (1 word)<br />
-
     </p>
 
-    <MudTable Items="Instructions" Style="margin-bottom: 30px;" Filter="new Func<Element, bool>(FilterInstructions)" @bind-SelectedItem="SearchVal">
+    <MudTable Items="Instructions" Style="margin-bottom: 30px;">
         <ToolBarContent>
             <MudText Typo="Typo.h3">Instructions</MudText>
             <MudSpacer/>
-            <MudTextField @bind-Value="SearchVal" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
         </ToolBarContent>
         <HeaderContent>
             <MudTh>Name</MudTh>
@@ -93,8 +91,9 @@
 
     <h3 class="title">Assembly Execution Program</h3>
     <p class="description" id="description">
-        Another project in this class was creating a program that allows the user to create and execute programs using our assembly langauge. It is a simple windows form that allows user to read
-        in a file, the code
+        Another project in this class was creating a program that allows the user to create and execute programs using our assembly langauge. It is a simple windows form that allows a user to read
+        in a file that holds source code of the assembly language written in hexadecimnal. From here, the hex is decoded and statistics are provided. Then the user can press an execute button to 
+        run the program and view the results.
     </p>
 
 </div>
@@ -110,19 +109,6 @@
     {
         Instructions = await Http.GetFromJsonAsync <List<Instruction>?> ("data/instructions.json");
         AddressModes = await Http.GetFromJsonAsync<List<AddressMode>?>("data/Addressing_Modes.json");
-    }
-
-    private bool FilterInstructions(Element e)
-    {
-        if (string.IsNullOrWhiteSpace(SearchVal))
-            return true;
-        if (e.Sign.Contains(SearchVal, StringComparison.OrdinalIgnoreCase))
-            return true;
-        if (e.Name.Contains(SearchVal, StringComparison.OrdinalIgnoreCase))
-            return true;
-        if ($"{e.Name}".Contains(SearchVal))
-            return true;
-        return false;
     }
 }
 
