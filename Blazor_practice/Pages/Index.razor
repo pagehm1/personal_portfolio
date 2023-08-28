@@ -1,5 +1,4 @@
 ﻿@page "/"
-@inject HttpClient Http
 
 <PageTitle>Home</PageTitle>
 <div style="width: 100%;">
@@ -37,7 +36,7 @@
     <MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-top: 5%; margin-bottom: 5%;" />
 
     <h4 class="text-box">Skills</h4>
-    <MudCarousel Style="margin:0 auto !important; width: 75%; border:2px solid black; border-radius: 10px; height:600px;" TData="object" AutoCycle="false" ArrowsPosition="Position.Center">
+    <MudCarousel Style="margin:0 auto !important; width: 75%; border:2px solid black; border-radius: 10px; height:600px;" TData="object" AutoCycle="false" ArrowsPosition="Position.Center" EnableSwipeGesture=true>
         <PreviousButtonTemplate>
             <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
                 <span class="mud-icon-button-label">
@@ -86,6 +85,21 @@
         </ChildContent>
     </MudCarousel>
 
+    <h4 class="text-box">Github repo languages</h4>
+
+    <div style="width: fit-content; margin: auto;">
+        <MudChart ChartType="ChartType.Donut" Style="width: 55vw; height: 55vh; max-width: 500px; max-height: 500px;" InputData="@donutChart.ChartData" InputLabels="@donutChart.ChartLabels" @bind-SelectedIndex="donutChart.ChartIndex" @onclick="donutChart.SetKB">
+            <CustomGraphics>
+                <text class="donut-inner-text" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="2">@donutChart.SelectedLanguage: @donutChart.Kilobytes KB</text>
+            </CustomGraphics>
+        </MudChart>
+    </div>
+
+
+    <p class="paragraph">
+        Here is a chart that shows the amount of code I have written, in kilobytes, for different languages based off of my repositories. 
+    </p>
+
     <h4 class="text-box">Future Plans</h4>
     <p class="paragraph">
         Currently I have been developing in .NET through this project and a couple other projects such as my file_transfer CLI. In the future I plan
@@ -95,40 +109,39 @@
         and honestly whatever else piques my interest. There are links below to contact me with any questions or suggestions, as I am open to any. Hopefully
         this website gives a decent idea at the developer I currently am and plan to be in the future. Thank you for taking the time to look me up!
     </p>
-
-    <div style="width: fit-content; margin: auto;">
-        <MudChart ChartType="ChartType.Donut" Style="width: 55vw; height: 55vh; max-width: 500px; max-height: 500px;" InputData="@chartData" InputLabels="@chartLabels"></MudChart>
-    </div>
 </div>
 
 @code {
-    HttpClient client = new HttpClient();
+    
 
-    Repo[]? repoNames;
+    private DonutChart_Git donutChart = new DonutChart_Git();
 
-    Dictionary<string, int> LanguageAmts = new Dictionary<string, int>();
-
-    string val = string.Empty;
-
-    //double[]? chartData2;
-    double[]? chartData;
-    string[]? chartLabels;
-
+    /// <summary>
+    /// runs on page loading
+    /// </summary>
+    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
-        await ProcessGitRepoLanguagesAsync(client);
+        await ProcessGitRepoLanguagesAsync();
     }
 
-    public async Task ProcessGitRepoLanguagesAsync(HttpClient client)
+    /// <summary>
+    /// Calls github repos to pull necessary info for donut chart of languages used in my repos. Results of api calls are
+    /// placed into a dictionary<languageName, byteAmt>
+    /// </summary>
+    /// <returns>runs asynchronously</returns>
+    public async Task ProcessGitRepoLanguagesAsync()
     {
+        HttpClient client = new HttpClient();
+
         //repos call to github api
-        repoNames = await client.GetFromJsonAsync<Repo[]>("https://api.github.com/users/pagehm1/repos");
+        Repo[]? repoNames = await client.GetFromJsonAsync<Repo[]>("https://api.github.com/users/pagehm1/repos");
 
         if (repoNames is not null)
         {
             foreach (var repo in repoNames)
             {
-                //languages call
+                //languages call to github api
                 var languagesResult = await client.GetFromJsonAsync<Dictionary<string, int>>(string.Format("https://api.github.com/repos/pagehm1/{0}/languages", repo.Name));
 
                 if (languagesResult is not null)
@@ -137,28 +150,17 @@
                     {
                         try
                         {
-                            LanguageAmts[pairs.Key] += pairs.Value;
+                            donutChart.LanguageAmts[pairs.Key] += pairs.Value;
                         }
                         catch(KeyNotFoundException)
                         {
-                            LanguageAmts.Add(pairs.Key, pairs.Value);
+                            donutChart.LanguageAmts.Add(pairs.Key, pairs.Value);
                         }
                     }
                 }
             }
 
-            GetDictionaryValues(LanguageAmts);
+            donutChart.GetDonutValues(donutChart.LanguageAmts);
         }
-    }
-
-    public void GetDictionaryValues(Dictionary<string, int> languageAmts)
-    {
-        chartData = Array.ConvertAll(languageAmts.Values.ToArray(), new System.Converter<int, double>(convertDouble));
-        chartLabels = LanguageAmts.Keys.ToArray();
-    }
-
-    public static double convertDouble(int x)
-    {
-        return (double)x;
     }
 }
