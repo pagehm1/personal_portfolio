@@ -1,5 +1,7 @@
 ﻿@page "/"
 
+@inject IHttpClientFactory _clientFactory
+
 <PageTitle>Home</PageTitle>
 <div style="width: 100%;">
     <div class="container">
@@ -87,18 +89,26 @@
 
     <h4 class="text-box">Github repo languages</h4>
 
-    <div style="width: fit-content; margin: auto;">
-        <MudChart ChartType="ChartType.Donut" Style="width: 55vw; height: 55vh; max-width: 500px; max-height: 500px;" InputData="@donutChart.ChartData" InputLabels="@donutChart.ChartLabels" @bind-SelectedIndex="donutChart.ChartIndex" @onclick="donutChart.SetKB">
-            <CustomGraphics>
-                <text class="donut-inner-text" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="2">@donutChart.SelectedLanguage: @donutChart.Kilobytes KB</text>
-            </CustomGraphics>
-        </MudChart>
-    </div>
+    @if(Available)
+    {
+        <div style="width: fit-content; margin: auto;">
+            <MudChart ChartType="ChartType.Donut" Style="width: 55vw; height: 55vh; max-width: 500px; max-height: 500px;" InputData="@donutChart.ChartData" InputLabels="@donutChart.ChartLabels" @bind-SelectedIndex="donutChart.ChartIndex" @onclick="donutChart.SetKB">
+                <CustomGraphics>
+                    <text class="donut-inner-text" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="2">@donutChart.SelectedLanguage: @donutChart.Kilobytes KB</text>
+                </CustomGraphics>
+            </MudChart>
+        </div>
 
-
-    <p class="paragraph">
-        Here is a chart that shows the amount of code I have written, in kilobytes, for different languages based off of my repositories. 
-    </p>
+        <p class="paragraph">
+            Here is a chart that shows the amount of code I have written, in kilobytes, for different languages based off of my repositories.
+        </p>
+    }
+    else
+    {
+        <div style="width: fit-content; margin: auto;">
+            Git Language statistics is not available at this time
+        </div>
+    }
 
     <h4 class="text-box">Future Plans</h4>
     <p class="paragraph">
@@ -112,9 +122,11 @@
 </div>
 
 @code {
-    
+
 
     private DonutChart_Git donutChart = new DonutChart_Git();
+
+    private bool Available = false;
 
     /// <summary>
     /// runs on page loading
@@ -132,27 +144,30 @@
     /// <returns>runs asynchronously</returns>
     public async Task ProcessGitRepoLanguagesAsync()
     {
-        HttpClient client = new HttpClient();
 
-        //repos call to github api
-        Repo[]? repoNames = await client.GetFromJsonAsync<Repo[]>("https://api.github.com/users/pagehm1/repos");
+        var client = _clientFactory.CreateClient("github_api");
+        Repo[]? repoNames;
 
-        if (repoNames is not null)
+        var resp = await client.GetAsync("/users/pagehm1/repos");
+        if (resp.IsSuccessStatusCode)
         {
+            Available = true;
+            repoNames = await resp.Content.ReadFromJsonAsync<Repo[]?>();
+
             foreach (var repo in repoNames)
             {
                 //languages call to github api
-                var languagesResult = await client.GetFromJsonAsync<Dictionary<string, int>>(string.Format("https://api.github.com/repos/pagehm1/{0}/languages", repo.Name));
+                var languagesResult = await client.GetFromJsonAsync<Dictionary<string, int>>(string.Format("/repos/pagehm1/{0}/languages", repo.Name));
 
                 if (languagesResult is not null)
                 {
-                    foreach(var pairs in languagesResult)
+                    foreach (var pairs in languagesResult)
                     {
                         try
                         {
                             donutChart.LanguageAmts[pairs.Key] += pairs.Value;
                         }
-                        catch(KeyNotFoundException)
+                        catch (KeyNotFoundException)
                         {
                             donutChart.LanguageAmts.Add(pairs.Key, pairs.Value);
                         }
@@ -161,6 +176,10 @@
             }
 
             donutChart.GetDonutValues(donutChart.LanguageAmts);
+        }
+        else
+        {
+            Available = false;
         }
     }
 }
