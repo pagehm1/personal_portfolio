@@ -1,95 +1,190 @@
 ﻿@page "/"
 
+@inject IHttpClientFactory _clientFactory
+
 <PageTitle>Home</PageTitle>
-<div class="container">
-    <div class="title-holder">
-        <h3 class="name">Hunter Page</h3>
-        <p class="paragraph">Software Developer</p>
+<div style="width: 100%;">
+    <div class="container">
+        <div class="title-holder">
+            <h3 class="name">Hunter Page</h3>
+            <p class="paragraph">Software Developer</p>
+        </div>
+        <img class="image" src="IMG_9717.jpg" />
     </div>
-    <img class="image" src="IMG_9717.jpg" />
-</div>
-<h4 class="text-box">About Me</h4>
-<p class="paragraph">
-    I am a backend software developer that has been in the industry for two years. In this time I have developed and 
-    maintained RESTful APIs, Command Line Interfaces, and in-house libraries using .NET and GOLANG. In my spare time, I like to work on my own projects, 
-    both old and new. I like to dive into new frameworks and languages such as GOLANG and Blazor. I also like to code in C and study lower-level
-    concepts such as OS development.
-</p>
-<MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey;" />
-<h4 class="text-box">Education</h4>
-<div class="education-holder">
-    <h4 class="sub-title">East Tennessee State University</h4>
-    <p class="sub-body">
-        Johnson City, TN | August 2019 – December 2021<br />
-        Bachelor of Science in Computing; Concentration – Computer Science <br />
-        GPA: 3.85, Summa Cum Laude <br />
+    <h4 class="text-box">About Me</h4>
+    <p class="paragraph">
+        I am a backend software developer that has been in the industry for two years. In this time I have developed and
+        maintained RESTful APIs, Command Line Interfaces, and in-house libraries using .NET and GOLANG. In my spare time, I like to work on my own projects,
+        both old and new. I like to dive into new frameworks and languages such as GOLANG and Blazor. I also like to code in C and study lower-level
+        concepts such as OS development.
     </p>
-    <h4 class="sub-title">Northeast State Community College</h4>
-    <p class="sub-body">
-        Blountville, TN | September 2017 – May 2019<br />
-        Associates of Applied Science: Computer Information Technology - Programming<br />
-        GPA: 3.9, Magna Cum Laude <br />
+    <MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey;" />
+    <h4 class="text-box">Education</h4>
+    <div class="education-holder">
+        <h4 class="sub-title">East Tennessee State University</h4>
+        <p class="sub-body">
+            Johnson City, TN | August 2019 – December 2021<br />
+            Bachelor of Science in Computing; Concentration – Computer Science <br />
+            GPA: 3.85, Summa Cum Laude <br />
+        </p>
+        <h4 class="sub-title">Northeast State Community College</h4>
+        <p class="sub-body">
+            Blountville, TN | September 2017 – May 2019<br />
+            Associates of Applied Science: Computer Information Technology - Programming<br />
+            GPA: 3.9, Magna Cum Laude <br />
+        </p>
+    </div>
+
+    <MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-top: 5%; margin-bottom: 5%;" />
+
+    <h4 class="text-box">Skills</h4>
+    <MudCarousel Style="margin:0 auto !important; width: 75%; border:2px solid black; border-radius: 10px; height:600px;" TData="object" AutoCycle="false" ArrowsPosition="Position.Center" EnableSwipeGesture=true>
+        <PreviousButtonTemplate>
+            <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                <span class="mud-icon-button-label">
+                    <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Dark" Size="Size.Large" />
+                </span>
+            </div>
+        </PreviousButtonTemplate>
+        <NextButtonTemplate>
+            <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                <span class="mud-icon-button-label">
+                    <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Dark" Size="Size.Large" />
+                </span>
+            </div>
+        </NextButtonTemplate>
+        <ChildContent>
+            <MudCarouselItem>
+                <div class="carousel-image" style="background-image: url(api.png);"></div>
+                <div class="carousel-item">
+                    <h4 class="sub-title">API Development</h4>
+                    <p class="sub-body">
+                        Two years of development and maintenance of RESTful APIs in both GOLANG and .NET.
+                    </p>
+                </div>
+            </MudCarouselItem>
+            <MudCarouselItem>
+                <div class="carousel-image" style="background-image: url(net2.png);"></div>
+                <div class="carousel-item">
+                    <h4 class="sub-title">.NET</h4>
+                    <p class="sub-body">
+                        5+ years of experience in the .NET environment. Experience includes CLIs, APIs, web development using Blazor, algorithm and
+                        data structure analysis, object-oriented programming, and library creation.
+                    </p>
+                </div>
+            </MudCarouselItem>
+            <MudCarouselItem>
+                <div class="carousel-image" style="background-image: url(languages.png);"></div>
+                <div class="carousel-item">
+                    <h4 class="sub-title">Other Experience</h4>
+                    <p class="sub-body">
+                        2+ years of MYSQL database programming, 3+ years programming in Linux OS Environments, performing Test-Driven Development,
+                        Object-Oriented Java development, C programming, PHP, Web-development(HTML, CSS, JavaScript)
+                    </p>
+                </div>
+
+            </MudCarouselItem>
+        </ChildContent>
+    </MudCarousel>
+
+    <h4 class="text-box">Github repo languages</h4>
+
+    @if(Available)
+    {
+        <div style="width: fit-content; margin: auto;">
+            <MudChart ChartType="ChartType.Donut" Style="width: 55vw; height: 55vh; max-width: 500px; max-height: 500px;" InputData="@donutChart.ChartData" InputLabels="@donutChart.ChartLabels" @bind-SelectedIndex="donutChart.ChartIndex" @onclick="donutChart.SetKB">
+                <CustomGraphics>
+                    <text class="donut-inner-text" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="2">@donutChart.SelectedLanguage: @donutChart.Kilobytes KB</text>
+                </CustomGraphics>
+            </MudChart>
+        </div>
+
+        <p class="paragraph">
+            Here is a chart that shows the amount of code I have written, in kilobytes, for different languages based off of my repositories.
+        </p>
+    }
+    else
+    {
+        <div style="width: fit-content; margin: auto;">
+            Git Language statistics is not available at this time
+        </div>
+    }
+
+    <h4 class="text-box">Future Plans</h4>
+    <p class="paragraph">
+        Currently I am developing in .NET through this website and remaking older school projects and posting them on github. I plan to
+        start contributing to open source software when I find projects on github that I am interested in. Any projects that I am working on
+        can be viewed on my github commits. Any software that I write will be viewable on my repos and probably have its own page under the "Projects"
+        section of this website. There are links below to contact me with any questions or suggestions, as I am open to any. Hopefully this website has given a
+        decent idea at the developer I currently am and plan to be in the future. Thank you for taking the time to look me up!
     </p>
 </div>
 
-<MudDivider DividerType="DividerType.Middle" Style="height: 5px; background-color: darkgrey; margin-top: 5%; margin-bottom: 5%;" />
+@code {
 
-<h4 class="text-box">Skills</h4>
-<MudCarousel Style="margin:0 auto !important; width: 75%; border:2px solid black; border-radius: 10px; height:600px;" TData="object" AutoCycle="false" ArrowsPosition="Position.Center">
-    <PreviousButtonTemplate>
-        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-            <span class="mud-icon-button-label">
-                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Dark" Size="Size.Large" />
-            </span>
-        </div>
-    </PreviousButtonTemplate>
-    <NextButtonTemplate>
-        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-            <span class="mud-icon-button-label">
-                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Dark" Size="Size.Large" />
-            </span>
-        </div>
-    </NextButtonTemplate>
-    <ChildContent>
-        <MudCarouselItem>
-            <div class="carousel-image" style="background-image: url(api.png);"></div>
-            <div class="carousel-item">
-                <h4 class="sub-title">API Development</h4>
-                <p class="sub-body">
-                    Two years of development and maintenance of RESTful APIs in both GOLANG and .NET.
-                </p>
-            </div>
-        </MudCarouselItem>
-        <MudCarouselItem>
-            <div class="carousel-image" style="background-image: url(net2.png);"></div>
-            <div class="carousel-item">
-                <h4 class="sub-title">.NET</h4>
-                <p class="sub-body">
-                    5+ years of experience in the .NET environment. Experience includes CLIs, APIs, web development using Blazor, algorithm and
-                    data structure analysis, object-oriented programming, and library creation.
-                </p>
-            </div>
-        </MudCarouselItem>
-        <MudCarouselItem>
-            <div class="carousel-image" style="background-image: url(languages.png);"></div>
-            <div class="carousel-item">
-                <h4 class="sub-title">Other Experience</h4>
-                <p class="sub-body">
-                    2+ years of MYSQL database programming, 3+ years programming in Linux OS Environments, performing Test-Driven Development,
-                    Object-Oriented Java development, C programming, PHP, Web-development(HTML, CSS, JavaScript)
-                </p>
-            </div>
 
-        </MudCarouselItem>
-    </ChildContent>
-</MudCarousel>
+    private DonutChart_Git donutChart = new DonutChart_Git();
 
-<h4 class="text-box">Future Plans</h4>
-<p class="paragraph">
-   Currently I have been developing in .NET through this project and a couple other projects such as my file_transfer CLI. In the future I plan 
-   to add some REST API functionality to this website to display the capabilities of Blazor. I also plan to revamp some of my old school projects 
-   and add them to my github. I also plan to develop a debugger for the fictional assembly language, pep9. It's an attempt to understand low-level 
-   programming better and to become more familiar with the C programming language. Other plans in the future include OS development, more .NET projects, 
-   and honestly whatever else piques my interest. There are links below to contact me with any questions or suggestions, as I am open to any. Hopefully 
-   this website gives a decent idea at the developer I currently am and plan to be in the future. Thank you for taking the time to look me up!
-</p>
+    private bool Available = false;
+
+
+    /// <summary>
+    /// runs on page loading
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(1);
+        await ProcessGitRepoLanguagesAsync();
+     }
+     
+
+    /// <summary>
+    /// Calls github repos to pull necessary info for donut chart of languages used in my repos. Results of api calls are
+    /// placed into a dictionary<languageName, byteAmt>
+    /// </summary>
+    /// <returns>runs asynchronously</returns>
+    public async Task ProcessGitRepoLanguagesAsync()
+    {
+        var client = _clientFactory.CreateClient("github_api");
+        Repo[]? repoNames;
+
+        var resp = await client.GetAsync("/users/pagehm1/repos");
+        if (resp.IsSuccessStatusCode)
+        {
+            Available = true;
+            repoNames = await resp.Content.ReadFromJsonAsync<Repo[]?>();
+
+            if(repoNames is not null)
+            {
+                foreach (var repo in repoNames)
+                {
+                    //languages call to github api
+                    var languagesResult = await client.GetFromJsonAsync<Dictionary<string, int>>(string.Format("/repos/pagehm1/{0}/languages", repo.Name));
+
+                    if (languagesResult is not null)
+                    {
+                        foreach (var pairs in languagesResult)
+                        {
+                            try
+                            {
+                                donutChart.LanguageAmts[pairs.Key] += pairs.Value;
+                            }
+                            catch (KeyNotFoundException)
+                            {
+                                donutChart.LanguageAmts.Add(pairs.Key, pairs.Value);
+                            }
+                        }
+                    }
+                }
+
+                donutChart.GetDonutValues(donutChart.LanguageAmts);
+            }
+        }
+        else
+        {
+            Available = false;
+        }
+        StateHasChanged();
+    }
+}
