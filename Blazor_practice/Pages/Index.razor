@@ -128,14 +128,17 @@
 
     private bool Available = false;
 
+
     /// <summary>
     /// runs on page loading
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
+        await Task.Delay(1);
         await ProcessGitRepoLanguagesAsync();
-    }
+     }
+     
 
     /// <summary>
     /// Calls github repos to pull necessary info for donut chart of languages used in my repos. Results of api calls are
@@ -144,7 +147,6 @@
     /// <returns>runs asynchronously</returns>
     public async Task ProcessGitRepoLanguagesAsync()
     {
-
         var client = _clientFactory.CreateClient("github_api");
         Repo[]? repoNames;
 
@@ -154,32 +156,37 @@
             Available = true;
             repoNames = await resp.Content.ReadFromJsonAsync<Repo[]?>();
 
-            foreach (var repo in repoNames)
+            if(repoNames is not null)
             {
-                //languages call to github api
-                var languagesResult = await client.GetFromJsonAsync<Dictionary<string, int>>(string.Format("/repos/pagehm1/{0}/languages", repo.Name));
-
-                if (languagesResult is not null)
+                foreach (var repo in repoNames)
                 {
-                    foreach (var pairs in languagesResult)
+                    //languages call to github api
+                    var languagesResult = await client.GetFromJsonAsync<Dictionary<string, int>>(string.Format("/repos/pagehm1/{0}/languages", repo.Name));
+
+                    if (languagesResult is not null)
                     {
-                        try
+                        foreach (var pairs in languagesResult)
                         {
-                            donutChart.LanguageAmts[pairs.Key] += pairs.Value;
-                        }
-                        catch (KeyNotFoundException)
-                        {
-                            donutChart.LanguageAmts.Add(pairs.Key, pairs.Value);
+                            try
+                            {
+                                donutChart.LanguageAmts[pairs.Key] += pairs.Value;
+                            }
+                            catch (KeyNotFoundException)
+                            {
+                                donutChart.LanguageAmts.Add(pairs.Key, pairs.Value);
+                            }
                         }
                     }
                 }
-            }
 
-            donutChart.GetDonutValues(donutChart.LanguageAmts);
+                donutChart.GetDonutValues(donutChart.LanguageAmts);
+            }
         }
         else
         {
             Available = false;
         }
+
+        StateHasChanged();
     }
 }
